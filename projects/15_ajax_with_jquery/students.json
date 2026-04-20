@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Arun",
+        "course": "BCA",
+        "year": "Second Year"
+    },
+    {
+        "name": "Divya",
+        "course": "B.Sc Computer Science",
+        "year": "Final Year"
+    },
+    {
+        "name": "Karthik",
+        "course": "B.Com",
+        "year": "First Year"
+    }
+]

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        button, input, select {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #eventBox {
+            margin: 20px auto;
+            width: 220px;
+            padding: 20px;
+            background: #dbeafe;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Events Demo</h1>
+
+        <button onclick="showMessage()">Click Event</button>
+        <button ondblclick="changeBackground()">Double Click Event</button>
+
+        <div id="eventBox" onmouseover="hoverMessage()" onmouseout="leaveMessage()">
+            Move mouse here
+        </div>
+
+        <input type="text" id="nameInput" placeholder="Type your name" onkeyup="showTyping()">
+        <p id="typingOutput"></p>
+
+        <select onchange="showCourse(this.value)">
+            <option value="">Select Course</option>
+            <option value="BCA">BCA</option>
+            <option value="B.Sc CS">B.Sc CS</option>
+            <option value="B.Com">B.Com</option>
+        </select>
+        <p id="courseOutput"></p>
+    </div>
+
+    <script>
+        function showMessage() {
+            alert("Button clicked");
+        }
+
+        function changeBackground() {
+            document.body.style.backgroundColor = "#dcfce7";
+        }
+
+        function hoverMessage() {
+            document.getElementById("eventBox").innerText = "Mouse is over the box";
+        }
+
+        function leaveMessage() {
+            document.getElementById("eventBox").innerText = "Move mouse here";
+        }
+
+        function showTyping() {
+            const name = document.getElementById("nameInput").value;
+            document.getElementById("typingOutput").innerText = "Typing: " + name;
+        }
+
+        function showCourse(course) {
+            document.getElementById("courseOutput").innerText = "Selected Course: " + course;
+        }
+    </script>
+</body>
+</html>

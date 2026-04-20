@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Demo</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light text-center">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Thirukkural Loader (Fetch API)</h2>
+
+    <input type="number" id="kural_num" placeholder="Enter Kural Number">
+    
+    <button id="loadBtn" class="btn btn-primary mb-4">
+        Load Kural
+    </button>
+
+    <div id="result" class="card p-4 shadow">
+        Click button to load data...
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.getElementById("loadBtn").addEventListener("click", async function () {
+
+        let num = parseInt(document.getElementById("kural_num").value);
+
+        let resultDiv = document.getElementById("result");
+        resultDiv.innerText = "Loading...";
+
+        try {
+            const res = await fetch("https://thirukkural-api-845e.onrender.com/api/kural_single", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ num: num })
+            });
+
+            const d = await res.json();
+            const data = d.data;
+
+            resultDiv.innerHTML = `
+                <p>Kural Number: ${data.number}</p>
+                <h2>${data.adhiharam.tamil}</h2>
+                <p><strong>Iyal:</strong> ${data.iyal.tamil}</p>
+
+                <div>
+                    <p>"${data.kural.tamil[0]}"</p>
+                    <p>"${data.kural.tamil[1]}"</p>
+                </div>
+
+                <p><strong>Pal:</strong> ${data.pal.tamil}</p>
+                <p><strong>Meaning:</strong> ${data.meaning.tamil}</p>
+            `;
+
+        } catch (error) {
+            resultDiv.innerText = "Error loading data!";
+        }
+
+    });
+
+});
+</script>
+
+</body>
+</html>

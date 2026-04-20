@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Effects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f1f5f9;
+            padding: 30px;
+        }
+
+        button {
+            padding: 10px 14px;
+            margin: 6px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #panel {
+            width: 260px;
+            padding: 30px;
+            background: #dbeafe;
+            margin: 30px auto;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery Effects Demo</h1>
+    <button id="hideBtn">Hide</button>
+    <button id="showBtn">Show</button>
+    <button id="toggleBtn">Toggle</button>
+    <button id="fadeBtn">Fade Toggle</button>
+    <button id="slideBtn">Slide Toggle</button>
+
+    <div id="panel">Hello jQuery Effects</div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $("#hideBtn").click(function () {
+            $("#panel").hide();
+        });
+
+        $("#showBtn").click(function () {
+            $("#panel").show();
+        });
+
+        $("#toggleBtn").click(function () {
+            $("#panel").toggle();
+        });
+
+        $("#fadeBtn").click(function () {
+            $("#panel").fadeToggle();
+        });
+
+        $("#slideBtn").click(function () {
+            $("#panel").slideToggle();
+        });
+    </script>
+</body>
+</html>

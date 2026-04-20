@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inline, Internal and External CSS</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            padding: 30px;
+        }
+
+        .internal-box {
+            background: #dbeafe;
+            border: 2px solid #2563eb;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Types of CSS</h1>
+
+    <div style="background: #fef3c7; border: 2px solid #f59e0b; padding: 20px; border-radius: 10px;">
+        This box uses inline CSS.
+    </div>
+
+    <div class="internal-box">
+        This box uses internal CSS from the style tag.
+    </div>
+
+    <div class="external-box">
+        This box uses external CSS from styles.css.
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Demo</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            margin: 20px auto;
+            text-align: center;
+            line-height: 200px;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-light text-center">
+
+<div class="container mt-5">
+    <h2 class="mb-4">jQuery Live Demo</h2>
+
+    <div id="box">Hello</div>
+
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+
+        <button id="colorBtn" class="btn btn-primary">Change Color</button>
+        <button id="hideBtn" class="btn btn-danger">Hide</button>
+        <button id="showBtn" class="btn btn-success">Show</button>
+        <button id="toggleBtn" class="btn btn-warning">Toggle</button>
+        <button id="textBtn" class="btn btn-info">Change Text</button>
+        <button id="animateBtn" class="btn btn-dark">Animate</button>
+
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+    // Change Color
+    $("#colorBtn").click(function() {
+        $("#box").css("background-color", "orange");
+    });
+
+    // Hide
+    $("#hideBtn").click(function() {
+        $("#box").hide();
+    });
+
+    // Show
+    $("#showBtn").click(function() {
+        $("#box").show();
+    });
+
+    // Toggle
+    $("#toggleBtn").click(function() {
+        $("#box").toggle();
+    });
+
+    // Change Text
+    $("#textBtn").click(function() {
+        $("#box").text("Changed!");
+    });
+
+    // Animation + chaining
+    $("#animateBtn").click(function() {
+        $("#box")
+            .slideUp(500)
+            .slideDown(500)
+            .fadeOut(500)
+            .fadeIn(500);
+    });
+
+});
+</script>
+
+</body>
+</html>

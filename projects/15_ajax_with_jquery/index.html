@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX with jQuery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            padding: 30px;
+        }
+
+        .box {
+            max-width: 760px;
+            margin: auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        button {
+            padding: 10px 16px;
+            background: #0f766e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .note {
+            background: #ecfeff;
+            border-left: 4px solid #0f766e;
+            padding: 10px;
+            margin: 14px 0;
+        }
+
+        .student {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>AJAX with jQuery</h1>
+        <p>Click the button to load student data from a JSON file using jQuery AJAX.</p>
+        <button id="loadBtn">Load Students</button>
+
+        <div class="note">
+            For local JSON AJAX requests, open this folder with a small local server like Live Server if your browser blocks file access.
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $("#loadBtn").click(function () {
+            $.ajax({
+                url: "students.json",
+                method: "GET",
+                dataType: "json",
+                success: function (students) {
+                    let output = "";
+
+                    $.each(students, function (index, student) {
+                        output += `
+                            <div class="student">
+                                <strong>Name:</strong> ${student.name}<br>
+                                <strong>Course:</strong> ${student.course}<br>
+                                <strong>Year:</strong> ${student.year}
+                            </div>
+                        `;
+                    });
+
+                    $("#result").html(output);
+                },
+                error: function () {
+                    $("#result").html("<p>Unable to load data. Please run with Live Server or another local server.</p>");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

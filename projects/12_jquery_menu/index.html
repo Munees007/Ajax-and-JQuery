@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            padding: 30px;
+        }
+
+        .menu-box {
+            max-width: 420px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .menu-title {
+            background: #2563eb;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .menu-item {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .menu-btn {
+            width: 100%;
+            background: #f8fafc;
+            border: none;
+            text-align: left;
+            padding: 14px 18px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submenu {
+            display: none;
+            padding: 0 18px 14px;
+            background: #eff6ff;
+        }
+
+        .submenu a {
+            display: block;
+            text-decoration: none;
+            color: #1e3a8a;
+            padding: 6px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-box">
+        <h1 class="menu-title">Course Menu</h1>
+
+        <div class="menu-item">
+            <button class="menu-btn">Frontend</button>
+            <div class="submenu">
+                <a href="#">HTML</a>
+                <a href="#">CSS</a>
+                <a href="#">JavaScript</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button class="menu-btn">Backend</button>
+            <div class="submenu">
+                <a href="#">Node.js</a>
+                <a href="#">Python</a>
+                <a href="#">Java</a>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <button class="menu-btn">Database</button>
+            <div class="submenu">
+                <a href="#">MySQL</a>
+                <a href="#">MongoDB</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".menu-btn").click(function () {
+                $(this).next(".submenu").slideToggle();
+            });
+        });
+    </script>
+</body>
+</html>

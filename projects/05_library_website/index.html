@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+        }
+
+        header {
+            background: #7c3aed;
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        footer {
+            background: #1e1b4b;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>City Central Library</h1>
+        <p>Read, Learn and Grow</p>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#books">Books</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="home" class="card">
+            <h2>Welcome to Our Library</h2>
+            <p>Our library offers a peaceful reading environment, a large book collection, and digital resources for students.</p>
+        </section>
+
+        <h2 id="books">Popular Sections</h2>
+        <div class="card-grid">
+            <div class="card"><h3>Science</h3><p>Physics, chemistry, and biology books.</p></div>
+            <div class="card"><h3>Literature</h3><p>Novels, poems, and plays for readers.</p></div>
+            <div class="card"><h3>Technology</h3><p>Programming and engineering resources.</p></div>
+        </div>
+
+        <section id="services" class="card" style="margin-top: 18px;">
+            <h2>Services</h2>
+            <ul>
+                <li>Book lending</li>
+                <li>Reference section</li>
+                <li>Newspaper and magazine reading</li>
+                <li>Internet access</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="card" style="margin-top: 18px;">
+            <h2>Contact</h2>
+            <p>Open Hours: 9:00 AM to 6:00 PM</p>
+            <p>Email: library@example.com</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>Library Website using HTML and CSS</p>
+    </footer>
+</body>
+</html>
