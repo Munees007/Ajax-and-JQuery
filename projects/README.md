@@ -17,5 +17,6 @@ This folder contains simple practical examples for:
 13. Animation using jQuery
 14. Effects using jQuery
 15. AJAX with jQuery
+16. Advanced AJAX CRUD with jQuery
 
 Open [index.html](./index.html) inside this folder for a simple launcher page.

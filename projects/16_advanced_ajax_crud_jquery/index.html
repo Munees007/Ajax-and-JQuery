@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced AJAX CRUD with jQuery</title>
+    <style>
+        :root {
+            --bg: #eef4ff;
+            --panel: #ffffff;
+            --primary: #0f4c81;
+            --primary-dark: #0b365c;
+            --accent: #f97316;
+            --text: #172033;
+            --muted: #5b6576;
+            --border: #d6dfef;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --error-bg: #fee2e2;
+            --error-text: #991b1b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 30%),
+                radial-gradient(circle at bottom right, #fde68a 0%, transparent 25%),
+                var(--bg);
+            color: var(--text);
+            padding: 28px 16px 40px;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f4c81, #1d4ed8);
+            color: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 20px 50px rgba(15, 76, 129, 0.22);
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(30px, 5vw, 42px);
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 760px;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 380px) 1fr;
+            gap: 22px;
+            margin-top: 24px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+        }
+
+        .panel h2,
+        .panel h3 {
+            margin-top: 0;
+        }
+
+        .subtext {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .note {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 14px;
+            background: #fff7ed;
+            border: 1px solid #fdba74;
+            color: #9a3412;
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 12px;
+            font: inherit;
+        }
+
+        .field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .secondary {
+            background: #e2e8f0;
+            color: var(--text);
+        }
+
+        .accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .status {
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-top: 18px;
+            line-height: 1.5;
+        }
+
+        .status.success {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .status.error {
+            background: var(--error-bg);
+            color: var(--error-text);
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .meta-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+        }
+
+        .meta-card span {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .response-box {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            min-height: 220px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .post-card {
+            background: linear-gradient(180deg, #ffffff, #f8fbff);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .post-card .id {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-card h4 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .post-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <h1>Advanced AJAX CRUD with jQuery</h1>
+            <p>
+                This advanced version of the AJAX practical demonstrates real API calls using jQuery with
+                <strong>GET</strong>, <strong>POST</strong>, <strong>PUT</strong>, <strong>PATCH</strong>,
+                and <strong>DELETE</strong> methods in one page.
+            </p>
+        </section>
+
+        <section class="layout">
+            <div class="panel">
+                <h2>API Form</h2>
+                <p class="subtext">
+                    Use the form and buttons below to test different AJAX requests. Keep <strong>Post ID</strong>
+                    filled for single item actions like GET by id, PUT, PATCH, and DELETE.
+                </p>
+
+                <div class="field">
+                    <label for="postId">Post ID</label>
+                    <input type="number" id="postId" value="1" min="1" max="100">
+                </div>
+
+                <div class="field">
+                    <label for="userId">User ID</label>
+                    <input type="number" id="userId" value="11" min="1">
+                </div>
+
+                <div class="field">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" value="Advanced jQuery AJAX demo">
+                </div>
+
+                <div class="field">
+                    <label for="body">Body</label>
+                    <textarea id="body">This example shows how to read, create, replace, partially update, and delete data using jQuery AJAX.</textarea>
+                </div>
+
+                <div class="button-grid">
+                    <button class="primary action-btn" id="getAllBtn">GET All</button>
+                    <button class="secondary action-btn" id="getOneBtn">GET One</button>
+                    <button class="accent action-btn" id="postBtn">POST Create</button>
+                    <button class="primary action-btn" id="putBtn">PUT Replace</button>
+                    <button class="secondary action-btn" id="patchBtn">PATCH Update</button>
+                    <button class="danger action-btn" id="deleteBtn">DELETE</button>
+                </div>
+
+                <div class="note">
+                    Demo API used: <strong>JSONPlaceholder</strong>. POST, PUT, PATCH, and DELETE requests are
+                    successful for learning, but they do not permanently change server data.
+                </div>
+
+                <div id="statusBox" class="status info">
+                    Waiting for an action. Click a button to start an AJAX request.
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Request Monitor</h2>
+                <div class="meta">
+                    <div class="meta-card">
+                        <span>Method</span>
+                        <strong id="metaMethod">-</strong>
+                    </div>
+                    <div class="meta-card">
+                        <span>Endpoint</span>
+                        <strong id="metaUrl">-</strong>
+                    </div>
+                    <div class="meta-card">
+                        <span>Status</span>
+                        <strong id="metaResult">Idle</strong>
+                    </div>
+                </div>
+
+                <h3>Raw Response</h3>
+                <pre id="responseBox" class="response-box">No response yet.</pre>
+
+                <h3>Preview Cards</h3>
+                <div id="postsContainer" class="cards">
+                    <div class="post-card">
+                        <span class="id">Preview</span>
+                        <h4>Response cards will appear here</h4>
+                        <p>Use GET requests to load data and see the visual output.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        const baseUrl = "https://jsonplaceholder.typicode.com/posts";
+
+        function setLoadingState(isLoading) {
+            $(".action-btn").prop("disabled", isLoading);
+        }
+
+        function setStatus(type, message) {
+            $("#statusBox")
+                .removeClass("success error info")
+                .addClass(type)
+                .html(message);
+        }
+
+        function updateMeta(method, url, result) {
+            $("#metaMethod").text(method || "-");
+            $("#metaUrl").text(url || "-");
+            $("#metaResult").text(result || "Idle");
+        }
+
+        function getPayload() {
+            return {
+                id: Number($("#postId").val()),
+                userId: Number($("#userId").val()),
+                title: $("#title").val().trim(),
+                body: $("#body").val().trim()
+            };
+        }
+
+        function showResponse(data) {
+            $("#responseBox").text(JSON.stringify(data, null, 2));
+        }
+
+        function renderPosts(data) {
+            const posts = Array.isArray(data) ? data : [data];
+
+            if (!posts.length) {
+                $("#postsContainer").html(
+                    '<div class="post-card"><span class="id">Empty</span><h4>No posts found</h4><p>The API returned no displayable records.</p></div>'
+                );
+                return;
+            }
+
+            let output = "";
+
+            $.each(posts, function (_, post) {
+                output += `
+                    <div class="post-card">
+                        <span class="id">Post #${post.id ?? "new"}</span>
+                        <h4>${post.title || "Untitled post"}</h4>
+                        <p>${post.body || "No body content available."}</p>
+                    </div>
+                `;
+            });
+
+            $("#postsContainer").html(output);
+        }
+
+        function handleAjax(method, url, payload, successMessage) {
+            setLoadingState(true);
+            updateMeta(method, url, "Loading...");
+            setStatus("info", `${method} request is running. Please wait...`);
+
+            $.ajax({
+                url: url,
+                method: method,
+                contentType: payload ? "application/json; charset=UTF-8" : undefined,
+                data: payload ? JSON.stringify(payload) : undefined,
+                success: function (response, textStatus, xhr) {
+                    updateMeta(method, url, `${xhr.status} ${xhr.statusText}`);
+                    setStatus("success", successMessage);
+                    showResponse(response);
+                    renderPosts(response);
+                },
+                error: function (xhr) {
+                    const resultText = xhr.status ? `${xhr.status} ${xhr.statusText}` : "Request failed";
+                    updateMeta(method, url, resultText);
+                    setStatus("error", `Request failed. ${resultText}`);
+                    showResponse({
+                        error: true,
+                        status: xhr.status,
+                        message: xhr.statusText || "Unknown error"
+                    });
+                },
+                complete: function () {
+                    setLoadingState(false);
+                }
+            });
+        }
+
+        $("#getAllBtn").on("click", function () {
+            handleAjax(
+                "GET",
+                `${baseUrl}?_limit=6`,
+                null,
+                "GET request completed. The latest sample posts are shown below."
+            );
+        });
+
+        $("#getOneBtn").on("click", function () {
+            const postId = $("#postId").val() || 1;
+
+            handleAjax(
+                "GET",
+                `${baseUrl}/${postId}`,
+                null,
+                `GET request completed for post id ${postId}.`
+            );
+        });
+
+        $("#postBtn").on("click", function () {
+            handleAjax(
+                "POST",
+                baseUrl,
+                getPayload(),
+                "POST request completed. A new sample record was created in the demo response."
+            );
+        });
+
+        $("#putBtn").on("click", function () {
+            const payload = getPayload();
+
+            handleAjax(
+                "PUT",
+                `${baseUrl}/${payload.id || 1}`,
+                payload,
+                `PUT request completed. Post ${payload.id || 1} was fully replaced in the demo response.`
+            );
+        });
+
+        $("#patchBtn").on("click", function () {
+            const payload = {
+                title: $("#title").val().trim(),
+                body: $("#body").val().trim()
+            };
+            const postId = $("#postId").val() || 1;
+
+            handleAjax(
+                "PATCH",
+                `${baseUrl}/${postId}`,
+                payload,
+                `PATCH request completed. Post ${postId} was partially updated in the demo response.`
+            );
+        });
+
+        $("#deleteBtn").on("click", function () {
+            const postId = $("#postId").val() || 1;
+
+            handleAjax(
+                "DELETE",
+                `${baseUrl}/${postId}`,
+                null,
+                `DELETE request completed for post id ${postId}.`
+            );
+        });
+    </script>
+</body>
+</html>
